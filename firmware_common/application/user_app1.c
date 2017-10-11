@@ -64,7 +64,17 @@ static fnCode_type UserApp1_StateMachine;            /* The state machine functi
 /**********************************************************************************************************************
 Function Definitions
 **********************************************************************************************************************/
-
+  LedPWM(WHITE, LED_PWM_100);
+  LedPWM(PURPLE, LED_PWM_70);
+  LedPWM(BLUE, LED_PWM_50);
+  LedPWM(CYAN, LED_PWM_30);
+  LedPWM(GREEN, LED_PWM_20);
+  LedPWM(YELLOW, LED_PWM_15);
+  LedPWM(ORANGE, LED_PWM_10);
+  LedPWM(RED, LED_PWM_5);
+  LedPWM(LCD_RED, LED_PWM_100);   
+  LedPWM(LCD_GREEN, LED_PWM_100);   
+  LedPWM(LCD_BLUE, LED_PWM_100);
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Public functions                                                                                                   */
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -136,7 +146,164 @@ State Machine Function Definitions
 /* Wait for ??? */
 static void UserApp1SM_Idle(void)
 {
-
+  static u16 u16Counter=0;
+  static u16 u8ColorIndex=0;
+  u16Counter++;
+  if(u16Counter==1)
+  {
+    LedOn(WHITE);
+    LedOff(PURPLE);
+    LedOff(BLUE);
+    LedOff(CYAN);
+    LedOff(GREEN);
+    LedOff(YELLOW);
+    LedOff(ORANGE);
+    LedOff(RED);
+  }
+  if(u16Counter==600)
+  {
+    LedOff(WHITE);
+    LedOn(PURPLE);
+    LedOff(BLUE);
+    LedOff(CYAN);
+    LedOff(GREEN);
+    LedOff(YELLOW);
+    LedOff(ORANGE);
+    LedOff(RED);
+  }
+  if(u16Counter==1050)
+  {
+    LedOff(WHITE);
+    LedOff(PURPLE);
+    LedOn(BLUE);
+    LedOff(CYAN);
+    LedOff(GREEN);
+    LedOff(YELLOW);
+    LedOff(ORANGE);
+    LedOff(RED);
+  }
+  if(u16Counter==1420)
+  {
+    LedOff(WHITE);
+    LedOff(PURPLE);
+    LedOff(BLUE);
+    LedOn(CYAN);
+    LedOff(GREEN);
+    LedOff(YELLOW);
+    LedOff(ORANGE);
+    LedOff(RED);
+  }
+  if(u16Counter==1650)
+  {
+    LedOff(WHITE);
+    LedOff(PURPLE);
+    LedOff(BLUE);
+    LedOff(CYAN);
+    LedOn(GREEN);
+    LedOff(YELLOW);
+    LedOff(ORANGE);
+    LedOff(RED);
+  }
+  if(u16Counter==1820)
+  {
+    LedOff(WHITE);
+    LedOff(PURPLE);
+    LedOff(BLUE);
+    LedOff(CYAN);
+    LedOff(GREEN);
+    LedOn(YELLOW);
+    LedOff(ORANGE);
+    LedOff(RED);
+  }
+  if(u16Counter==1940)
+  {
+    LedOff(WHITE);
+    LedOff(PURPLE);
+    LedOff(BLUE);
+    LedOff(CYAN);
+    LedOff(GREEN);
+    LedOff(YELLOW);
+    LedOn(ORANGE);
+    LedOff(RED);
+  }
+  if(u16Counter==2040)
+  {
+    LedOff(WHITE);
+    LedOff(PURPLE);
+    LedOff(BLUE);
+    LedOff(CYAN);
+    LedOff(GREEN);
+    LedOff(YELLOW);
+    LedOff(ORANGE);
+    LedOn(RED);
+  }
+  if(u16Counter==2100)
+  {
+    LedOff(WHITE);
+    LedOff(PURPLE);
+    LedOff(BLUE);
+    LedOff(CYAN);
+    LedOff(GREEN);
+    LedOff(YELLOW);
+    LedOff(ORANGE);
+    LedOff(RED);
+    u16Counter=0;
+    u8ColorIndex++;
+  }
+  if(u8ColorIndex == 7)       
+  {         
+    u8ColorIndex = 0;       
+  } 
+  switch(u8ColorIndex)       
+  {         
+    case 0: /* white */           
+      LedOn(LCD_RED);           
+      LedOn(LCD_GREEN);           
+      LedOn(LCD_BLUE);           
+      break;
+      
+    case 1: /* purple */           
+      LedOn(LCD_RED);           
+      LedOff(LCD_GREEN);           
+      LedOn(LCD_BLUE);           
+      break;
+      
+    case 2: /* blue */           
+      LedOff(LCD_RED); 
+      LedOff(LCD_GREEN);           
+      LedOn(LCD_BLUE);           
+      break; 
+      
+    case 3: /* cyan */           
+      LedOff(LCD_RED);           
+      LedOn(LCD_GREEN);           
+      LedOn(LCD_BLUE);           
+      break;
+      
+    case 4: /* green */           
+      LedOff(LCD_RED);           
+      LedOn(LCD_GREEN);           
+      LedOff(LCD_BLUE);           
+      break;
+      
+    case 5: /* yellow */           
+      LedOn(LCD_RED);           
+      LedOn(LCD_GREEN);           
+      LedOff(LCD_BLUE);           
+      break;
+      
+    case 6: /* red */           
+      LedOn(LCD_RED);           
+      LedOff(LCD_GREEN);           
+      LedOff(LCD_BLUE);           
+      break;
+      
+    default: /* off */           
+      LedOff(LCD_RED);           
+      LedOff(LCD_GREEN);           
+      LedOff(LCD_BLUE);           
+      break;
+  }
 } /* end UserApp1SM_Idle() */
     
 
