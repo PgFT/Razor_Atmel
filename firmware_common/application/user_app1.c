@@ -87,7 +87,14 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
- 
+ LedOff(WHITE);   
+  LedOff(PURPLE);   
+  LedOff(BLUE);   
+  LedOff(CYAN);   
+  LedOff(GREEN);   
+  LedOff(YELLOW);   
+  LedOff(ORANGE);   
+  LedOff(RED); 
   /* If good initialization, set state to Idle */
   if( 1 )
   {
@@ -133,10 +140,104 @@ State Machine Function Definitions
 **********************************************************************************************************************/
 
 /*-------------------------------------------------------------------------------------------------------------------*/
-/* Wait for ??? */
+/* button interface */
 static void UserApp1SM_Idle(void)
 {
+static u8 au8Array[10]={1,2,1,0,2,1};
+  static u8 au8Array1[10];
+  static u8 u8Counter=0;
+  static u8 u8Counter1=0;
+  static u8 u8Mode=0;
+  static bool bGreenBlink=FALSE;
 
+  if(WasButtonPressed(BUTTON3))
+  {
+    ButtonAcknowledge(BUTTON3);
+    u8Mode++;
+  }
+  if(u8Mode==1)
+  {
+    LedOn(RED);
+    if(WasButtonPressed(BUTTON0) )
+    {
+      ButtonAcknowledge(BUTTON0);
+      au8Array1[u8Counter]=0;
+      u8Counter++;
+    }
+    if(WasButtonPressed(BUTTON1) )
+    {
+      ButtonAcknowledge(BUTTON1);
+      au8Array1[u8Counter]=1;
+      u8Counter++;
+    }
+    if(WasButtonPressed(BUTTON2) )
+    {
+      ButtonAcknowledge(BUTTON2);
+      au8Array1[u8Counter]=2;
+      u8Counter++;
+    }
+  }
+    if(u8Mode==2)
+    {
+      if(u8Counter==6)
+      {
+        for(u8Counter1=0;u8Counter1<=5;u8Counter1++)
+        {  
+          if(au8Array1[u8Counter1]==au8Array[u8Counter1])
+          {
+            u8Counter1++;
+          }
+          else
+          {
+            LedBlink(RED, LED_1HZ);
+          }
+        }
+        if(u8Counter1==6)
+        {
+          LedBlink(GREEN, LED_1HZ);
+          LedOff(RED);
+        }
+      }
+        u8Counter=0;
+        u8Mode=0;
+  }
+  u8Counter1=0;
+   for(u8 i=0;i<=9;i++)
+    {
+      au8Array[i]=0;
+    }
+  if( IsButtonHeld(BUTTON3, 2000))
+  {
+    u8Mode=3;
+  }
+   if(u8Mode==3)
+   {
+    if(bGreenBlink==TRUE)
+    {
+        LedBlink(RED, LED_1HZ);
+        LedBlink(GREEN, LED_1HZ);
+        if(WasButtonPressed(BUTTON0) )
+        {
+          ButtonAcknowledge(BUTTON0);
+          au8Array[u8Counter]=0;
+          u8Counter++;
+        }
+        if(WasButtonPressed(BUTTON1) )
+        {
+          ButtonAcknowledge(BUTTON1);
+         
+          au8Array[u8Counter]=1;
+          u8Counter++;
+        }
+        if(WasButtonPressed(BUTTON2) )
+        {
+          ButtonAcknowledge(BUTTON2);
+          au8Array[u8Counter]=2;
+          u8Counter++;
+        }  
+      }
+    u8Mode=0;
+  }
 } /* end UserApp1SM_Idle() */
     
 
