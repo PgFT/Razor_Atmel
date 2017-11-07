@@ -52,6 +52,8 @@ extern volatile u32 G_u32ApplicationFlags;             /* From main.c */
 extern volatile u32 G_u32SystemTime1ms;                /* From board-specific source file */
 extern volatile u32 G_u32SystemTime1s;                 /* From board-specific source file */
 
+extern u8 G_au8DebugScanfButter[];
+extern u8 G_u8DebugScanfCharCount;
 
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
@@ -136,6 +138,63 @@ State Machine Function Definitions
 /* Wait for ??? */
 static void UserApp1SM_Idle(void)
 {
+  static u8 u8EnterIn[]={0};
+  static u8 u8Judge[100];
+  static u8 u8Index=0;
+  static u32 u32Counter=0;
+  
+  if(G_u8DebugScanfCharCount>=1)//make a judgement every time
+  {
+    DebugScanf(u8EnterIn);
+    u8Judge[u8Index]=u8EnterIn[0];//Save the input values in an array
+		
+    if(u8Index>=2)
+    {
+      if(u8Judge[u8Index-1]=='Z')
+      {
+        if(u8Judge[u8Index]=='Q')
+          {
+            u32Counter++;
+            DebugLineFeed();
+						
+            if(u32Counter<10)
+            {
+              DebugPrintf("***");
+              DebugLineFeed();
+              DebugPrintf("*");
+              DebugPrintNumber(u32Counter);//output number
+              DebugPrintf("*");
+              DebugLineFeed();
+              DebugPrintf("***");
+            }
+						
+            if(u32Counter>=10&&u32Counter<100)
+            {
+              DebugPrintf("****");
+              DebugLineFeed();
+              DebugPrintf("*");
+              DebugPrintNumber(u32Counter);//output number
+              DebugPrintf("*");
+              DebugLineFeed();
+              DebugPrintf("****");
+            }
+						
+            if(u32Counter>=100&&u32Counter<1000)
+            {
+              DebugPrintf("*****");
+              DebugLineFeed();
+              DebugPrintf("*");
+              DebugPrintNumber(u32Counter);//output number
+              DebugPrintf("*");
+              DebugLineFeed();
+              DebugPrintf("*****");
+            }
+												
+          }
+        }
+      }
+            u8Index++;
+  }
 
 } /* end UserApp1SM_Idle() */
     
