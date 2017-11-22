@@ -234,7 +234,7 @@ State Machine Function Definitions
 /* Wait for input */
 static void UserApp1SM_Idle(void)
 {
-  static u8 au8Command[12];
+        static u8 au8Command[12];
 	static u8 au8EnterIn[]={0};
 	static u8 u8CMDBit=0;
 	static u8 u8CMDNum=0;
