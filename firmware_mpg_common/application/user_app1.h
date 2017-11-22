@@ -58,7 +58,7 @@ static void UserApp1SM_Idle(void);
 
 static void UserApp1SM_Error(void);         
 static void UserApp1SM_FailedInit(void);        
-
+bool bJudge(u8 *au8Command,u8 u8CMDBit);
 
 #endif /* __USER_APP1_H */
 
